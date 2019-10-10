@@ -1,0 +1,23 @@
+{
+	"name" : "swango/environment",
+	"license" : "Apache-2.0",
+	"keywords" : [
+		"php",
+		"swoole"
+	],
+	"require" : {
+		"swango/stdlib" : "^1.2"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Swango\\Environment\\" : "src"
+		},
+		"classmap" : [
+			"src/Environment.php"
+		]
+	},
+	"config" : {
+		"optimize-autoloader" : true,
+		"sort-packages" : true
+	}
+}

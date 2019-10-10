@@ -1,0 +1,35 @@
+{
+	"dir":{
+		"base":null,
+		"main":"{base}main/",
+		"controller":"{main}Controller/",
+		"model":"{main}Model/",
+		"model_cache":"{main}ModelCache/",
+		"library":"{main}Library/",
+		"app":"{base}app/",
+		"module":"{base}module/",
+		"data":"{base}data/",
+		"cli":"{base}cli/",
+		"config":"{base}config/"
+	},
+	"framwork":{
+		"redis":"{config}redis.json",
+		"_redis_can_also_be_like_this":{
+			"host":"xx.xx.xx",
+			"port":6379
+		},
+		"master_db":"{config}DB/master.json",
+		"slave_db":"{config}DB/slave.json",
+		"_db_can_also_be_like_this":{
+			"hostname":"xx.xx.xx",
+    		"port":3306,
+	    	"charset":"utf8mb4",
+    		"database":"xxx",
+    		"username":"xxx",
+    		"password":"xxx"
+		}
+	},
+	"localip":"127.0.0.1",
+	"_localip_from_a_file":"Path to a file containing local ip. {base}localip",
+	"_localip_from_net_card":"eth0"
+}
