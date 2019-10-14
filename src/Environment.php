@@ -46,6 +46,17 @@ abstract class Environment {
         }
         return self::$storage['Service'];
     }
+    public static function getName(): string {
+        if (! array_key_exists('Name', self::$storage)) {
+            if (self::$basic_config === null || ! self::$basic_config->name) {
+                $name = self::getDefaultConfig()->name;
+            } else {
+                $name = self::$basic_config->name;
+            }
+            self::$storage['Name'] = $name;
+        }
+        return self::$storage['Name'];
+    }
     public static function getFrameworkConfig(string $category): array {
         if (self::$basic_config === null || ! isset(self::$basic_config->framwork->{$category})) {
             $config = self::getDefaultConfig()->framwork->{$category};

@@ -1,4 +1,5 @@
 {
+    "name":"Swango",
     "dir": {
         "base": null,
         "main": "{base}main/",
