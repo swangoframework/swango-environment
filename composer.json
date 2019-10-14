@@ -5,9 +5,6 @@
 		"php",
 		"swoole"
 	],
-	"require" : {
-		"swango/stdlib" : "^1.2"
-	},
 	"autoload" : {
 		"psr-4" : {
 			"Swango\\Environment\\" : "src"

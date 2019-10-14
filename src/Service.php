@@ -20,15 +20,16 @@ class Service extends \Swango\Environment {
         $this->data = new \stdClass();
         $service_config = new \stdClass();
 
-        $default_service_config = \Json::decodeAsObject(file_get_contents(__DIR__ . '/../default/service.json'));
+        $default_service_config = json_decode(file_get_contents(__DIR__ . '/../default/service.json'), false);
 
         if (null !== self::$basic_config && isset(self::$basic_config->service_config_file) &&
              is_string(self::$basic_config->service_config_file)) {
             $service_config_file = self::$basic_config->service_config_file;
-            if (file_exists($service_config_file))
-                try {
-                    $service_config = \Json::decodeAsObject(file_get_contents($service_config_file));
-                } catch(\JsonDecodeFailException $e) {}
+            if (file_exists($service_config_file)) {
+                $service_config = json_decode(file_get_contents($service_config_file), false);
+                if (json_last_error() !== JSON_ERROR_NONE)
+                    $service_config = new \stdClass();
+            }
         }
 
         foreach ([

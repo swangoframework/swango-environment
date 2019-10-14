@@ -6,18 +6,16 @@ abstract class Environment {
     public static function setBasicConfigFile(string $config_file): void {
         if (! file_exists($config_file))
             throw new Environment\Exception('Config file not exists');
-        try {
-            $basic_config = \Json::decodeAsObject(file_get_contents($config_file));
-        } catch(\JsonDecodeFailException $e) {
+        $basic_config = json_decode(file_get_contents($config_file), false);
+        if (json_last_error() !== JSON_ERROR_NONE)
             throw new Environment\Exception('Config file json decode fail');
-        }
         if (! is_object($basic_config))
             throw new Environment\Exception('Config file not an object');
         self::$basic_config = $basic_config;
     }
     protected static function getDefaultConfig(): \stdClass {
         if (self::$default_config === null) {
-            $default_config = \Json::decodeAsObject(file_get_contents(__DIR__ . '/../default/swango.json'));
+            $default_config = json_decode(file_get_contents(__DIR__ . '/../default/swango.json'), false);
             $unset = [];
             foreach ($default_config as $k=>$v)
                 if ($k{0} === '_')
@@ -65,10 +63,14 @@ abstract class Environment {
         }
         if (is_string($config) && '' !== $config) {
             $file = self::getDir()->getParsedDir($config);
-            if (file_exists($file))
-                return \Json::decodeAsArray(file_get_contents($file));
-            else
+            if (file_exists($file)) {
+                $ret = json_decode(file_get_contents($file), true);
+                if (json_last_error() !== JSON_ERROR_NONE)
+                    throw new Environment\Exception('Config file json decode fail');
+                return $ret;
+            } else {
                 throw new Environment\Exception('Cannot find config file for ' . $category . ' in ' . $file);
+            }
         }
         if (is_object($config))
             return (array)$config;
@@ -78,7 +80,10 @@ abstract class Environment {
         $file = self::getDir()->config . "$key.json";
         if (! file_exists($file))
             throw new Environment\Exception('Cannot find config file for ' . $key . ' in ' . $file);
-        return \Json::decodeAsArray($file);
+        $ret = json_decode(file_get_contents($file), true);
+        if (json_last_error() !== JSON_ERROR_NONE)
+            throw new Environment\Exception('Config file json decode fail');
+        return $ret;
     }
     public function __set(string $key, $value) {
         trigger_error('Do not try to set property');
