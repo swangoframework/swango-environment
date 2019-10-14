@@ -40,37 +40,11 @@ abstract class Environment {
         }
         return self::$storage['WorkingMode'];
     }
-    public static function getLocalIp(): string {
-        if (! array_key_exists('LocalIp', self::$storage)) {
-            if (self::$basic_config === null || ! property_exists(self::$basic_config, 'localip')) {
-                $localip = self::getDefaultConfig()->localip;
-            } else {
-                $localip = self::$basic_config->localip;
-            }
-            $ip = null;
-            if (is_string($localip) && '' !== $localip) {
-                if (filter_var($localip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-                    $ip = $localip;
-                } else {
-                    $file = self::getDir()->getParsedDir($localip);
-                    if (file_exists($file)) {
-                        $ip = file_get_contents($file);
-                        if (! filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4))
-                            trigger_error('Cannot read local ip from file ' . $file);
-                    } else {
-                        $net_card_data = swoole_get_local_ip();
-                        if (array_key_exists($localip, $net_card_data))
-                            $ip = $net_card_data[$localip];
-                        else
-                            trigger_error('Cannot define ip by ' . $localip);
-                    }
-                }
-            }
-            if (! isset($ip))
-                $ip = swoole_get_local_ip()['eth0'];
-            self::$storage['LocalIp'] = $ip;
+    public static function getServiceConfig(): \Swango\Environment\Service {
+        if (! array_key_exists('Service', self::$storage)) {
+            self::$storage['Service'] = new \Swango\Environment\Service();
         }
-        return self::$storage['LocalIp'];
+        return self::$storage['Service'];
     }
     public static function getFrameworkConfig(string $category): array {
         if (self::$basic_config === null || ! isset(self::$basic_config->framwork->{$category})) {

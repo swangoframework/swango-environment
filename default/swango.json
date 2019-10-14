@@ -29,7 +29,5 @@
             "password": "xxx"
         }
     },
-    "localip": "127.0.0.1",
-    "_localip_from_a_file": "Path to a file containing local ip. {base}localip",
-    "_localip_from_net_card": "eth0"
+    "service_config_file":null
 }
