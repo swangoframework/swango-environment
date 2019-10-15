@@ -11,6 +11,14 @@ namespace Swango\Environment;
  * @property int $db_max_conntection
  * @property int $task_max_request
  *
+ * @property int $http_server_port
+ * @property int $websocket_server_port
+ * @property int $terminal_server_port
+ *
+ * @property string $http_server_host
+ * @property string $websocket_server_host
+ * @property string $terminal_server_host
+ *
  * @property string $local_ip
  *
  */
@@ -37,7 +45,10 @@ class Service extends \Swango\Environment {
             'worker_num',
             'task_worker_num',
             'db_max_conntection',
-            'task_max_request'
+            'task_max_request',
+            'http_server_port',
+            'websocket_server_port',
+            'terminal_server_port'
         ] as $key) {
             if (isset($service_config->{$key}) && is_numeric($service_config->{$key})) {
                 $number = $service_config->{$key};
@@ -45,6 +56,19 @@ class Service extends \Swango\Environment {
                 $number = $default_service_config->{$key};
             }
             $this->data->{$key} = (int)$number;
+        }
+
+        foreach ([
+            'http_server_host',
+            'websocket_server_host',
+            'terminal_server_host'
+        ] as $key) {
+            if ($service_config->{$key}) {
+                $value = $service_config->{$key};
+            } else {
+                $value = $default_service_config->{$key};
+            }
+            $this->data->{$key} = $value;
         }
 
         if (property_exists($service_config, 'localip')) {

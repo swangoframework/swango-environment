@@ -4,6 +4,16 @@
     "task_worker_num":16,
     "db_max_conntection":2000,
     "task_max_request":5000,
+
+    "http_server_port":80,
+    "http_server_host":"0.0.0.0",
+
+    "websocket_server_port":80,
+    "websocket_server_host":"0.0.0.0",
+
+    "terminal_server_port":8588,
+    "terminal_server_host":"0.0.0.0",
+
     "localip": "127.0.0.1",
     "_localip_from_a_file": "Path to a file containing local ip. {base}localip",
     "_localip_from_net_card": "eth0"
