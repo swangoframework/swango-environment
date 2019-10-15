@@ -52,6 +52,7 @@ class Dir extends \Swango\Environment {
             'module',
             'data',
             'cli',
+            'log',
             'config'
         ] as $key) {
             if (! isset($dir_config->{$key}) || '' === $dir_config->{$key}) {

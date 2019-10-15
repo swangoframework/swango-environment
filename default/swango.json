@@ -11,6 +11,7 @@
         "module": "{base}module/",
         "data": "{base}data/",
         "cli": "{base}cli/",
+        "log": "{base}log/",
         "config": "{base}config/"
     },
     "framwork": {
