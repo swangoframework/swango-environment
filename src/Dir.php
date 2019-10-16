@@ -26,7 +26,7 @@ class Dir extends \Swango\Environment {
             $dir_config = new \stdClass();
         else
             $dir_config = self::$basic_config->dir;
-        $default_config = self::getDefaultConfig();
+        $default_config = self::getDefaultConfig()->dir;
 
         if (isset($dir_config->base) && '' !== $dir_config->base) {
             $base_dir = $dir_config->base;
@@ -56,7 +56,7 @@ class Dir extends \Swango\Environment {
             'config'
         ] as $key) {
             if (! isset($dir_config->{$key}) || '' === $dir_config->{$key}) {
-                $dir = $default_config->dir->{$key};
+                $dir = $default_config->{$key};
             } else {
                 $dir = $dir_config->{$key};
             }
