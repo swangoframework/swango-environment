@@ -63,7 +63,7 @@ class Service extends \Swango\Environment {
             'websocket_server_host',
             'terminal_server_host'
         ] as $key) {
-            if ($service_config->{$key}) {
+            if (isset($service_config->{$key}) && $service_config->{$key}) {
                 $value = $service_config->{$key};
             } else {
                 $value = $default_service_config->{$key};
