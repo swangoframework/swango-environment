@@ -83,7 +83,7 @@ class Service extends \Swango\Environment {
             } else {
                 $file = self::getDir()->getParsedDir($localip);
                 if (file_exists($file)) {
-                    $ip = file_get_contents($file);
+                    $ip = trim(file_get_contents($file));
                     if (! filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4))
                         trigger_error('Cannot read local ip from file ' . $file);
                 } else {
