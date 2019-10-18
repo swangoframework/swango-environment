@@ -32,7 +32,7 @@ class Service extends \Swango\Environment {
 
         if (null !== self::$basic_config && isset(self::$basic_config->service_config_file) &&
              is_string(self::$basic_config->service_config_file)) {
-            $service_config_file = self::$basic_config->service_config_file;
+            $service_config_file = self::getDir()->getParsedDir(self::$basic_config->service_config_file);
             if (file_exists($service_config_file)) {
                 $service_config = json_decode(file_get_contents($service_config_file), false);
                 if (json_last_error() !== JSON_ERROR_NONE)
