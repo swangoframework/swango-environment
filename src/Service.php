@@ -93,7 +93,7 @@ class Service extends \Swango\Environment {
                 curl_close($ch);
                 if ($result) {
                     $result = trim($result);
-                    if (filter_var($localip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                    if (filter_var($result, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
                         $ip = $result;
                     } else {
                         trigger_error('Get ip from meta data fail: ' . $result);
