@@ -78,7 +78,30 @@ class Service extends \Swango\Environment {
         }
         $net_card_data = $ip = null;
         if (is_string($localip) && '' !== $localip) {
-            if (filter_var($localip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            if ($localip === 'aliyun-private-ipv4') {
+                $ch = curl_init();
+                curl_setopt_array($ch,
+                    [
+                        CURLOPT_HEADER => 0,
+                        CURLOPT_URL => 'http://100.100.100.200/2016-01-01/meta-data/private-ipv4',
+                        CURLOPT_FRESH_CONNECT => 1,
+                        CURLOPT_RETURNTRANSFER => 1,
+                        CURLOPT_FORBID_REUSE => 1,
+                        CURLOPT_TIMEOUT => 1
+                    ]);
+                $result = curl_exec($ch);
+                curl_close($ch);
+                if ($result) {
+                    $result = trim($result);
+                    if (filter_var($localip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                        $ip = $result;
+                    } else {
+                        trigger_error('Get ip from meta data fail: ' . $result);
+                    }
+                } else {
+                    trigger_error('Get ip from meta data error: ' . curl_error($ch));
+                }
+            } elseif (filter_var($localip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
                 $ip = $localip;
             } else {
                 $file = self::getDir()->getParsedDir($localip);
