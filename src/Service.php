@@ -12,10 +12,14 @@ namespace Swango\Environment;
  * @property int $task_max_request
  *
  * @property int $http_server_port
+ * @property int $tcp_server_port
+ * @property int $udp_server_port
  * @property int $websocket_server_port
  * @property int $terminal_server_port
  *
  * @property string $http_server_host
+ * @property string $tcp_server_host
+ * @property string $udp_server_host
  * @property string $websocket_server_host
  * @property string $terminal_server_host
  *
@@ -47,19 +51,23 @@ class Service extends \Swango\Environment {
             'db_max_conntection',
             'task_max_request',
             'http_server_port',
+            'tcp_server_port',
+            'udp_server_port',
             'websocket_server_port',
             'terminal_server_port'
         ] as $key) {
             if (isset($service_config->{$key}) && is_numeric($service_config->{$key})) {
-                $number = $service_config->{$key};
+                $number = (int)$service_config->{$key};
             } else {
                 $number = $default_service_config->{$key};
             }
-            $this->data->{$key} = (int)$number;
+            $this->data->{$key} = $number;
         }
 
         foreach ([
             'http_server_host',
+            'tcp_server_host',
+            'udp_server_host',
             'websocket_server_host',
             'terminal_server_host'
         ] as $key) {

@@ -13,6 +13,12 @@
 
     "terminal_server_port":8588,
     "terminal_server_host":"0.0.0.0",
+    
+    "tcp_server_port":null,
+    "tcp_server_host":"0.0.0.0",
+    
+    "udp_server_port":null,
+    "udp_server_host":"0.0.0.0",
 
     "localip": "127.0.0.1",
     "_localip_from_a_file": "Path to a file containing local ip. {base}localip",
