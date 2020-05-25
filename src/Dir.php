@@ -22,7 +22,7 @@ class Dir extends \Swango\Environment {
     private $data, $search, $replace;
     protected function __construct() {
         $this->data = new \stdClass();
-        if (self::$basic_config === null || ! is_object(self::$basic_config->dir))
+        if (self::$basic_config === null || (isset(self::$basic_config->dir) && ! is_object(self::$basic_config->dir)))
             $dir_config = new \stdClass();
         else
             $dir_config = self::$basic_config->dir;
