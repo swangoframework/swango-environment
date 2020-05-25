@@ -57,17 +57,19 @@ abstract class Environment {
     }
     public static function getFrameworkConfig(string $category): array {
         if (self::$basic_config === null || ! isset(self::$basic_config->framwork->{$category})) {
-            $config = self::getDefaultConfig()->framwork->{$category};
+            $config_obj = self::getDefaultConfig();
         } else {
-            $config = self::$basic_config->framwork->{$category};
+            $config_obj = self::$basic_config;
         }
+        $config = $config_obj->framwork->{$category};
         if (is_string($config) && '' !== $config) {
             $file = self::getDir()->getParsedDir($config);
             if (file_exists($file)) {
                 $ret = json_decode(file_get_contents($file), true);
-                if (json_last_error() !== JSON_ERROR_NONE)
+                if (json_last_error() !== JSON_ERROR_NONE) {
                     throw new Environment\Exception('Config file json decode fail');
-                self::$basic_config->framwork->{$category} = $ret;
+                }
+                $config_obj->framwork->{$category} = $ret;
                 return $ret;
             } else {
                 throw new Environment\Exception('Cannot find config file for ' . $category . ' in ' . $file);
