@@ -67,6 +67,7 @@ abstract class Environment {
                 $ret = json_decode(file_get_contents($file), true);
                 if (json_last_error() !== JSON_ERROR_NONE)
                     throw new Environment\Exception('Config file json decode fail');
+                self::$basic_config->framwork->{$category} = $ret;
                 return $ret;
             } else {
                 throw new Environment\Exception('Cannot find config file for ' . $category . ' in ' . $file);
