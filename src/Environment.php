@@ -76,7 +76,8 @@ abstract class Environment {
             }
         }
         if (is_object($config))
-            return (array)$config;
+            $config = (array)$config;
+        return $config;
         throw new Environment\Exception('Cannot find config for ' . $category);
     }
     public static function getConfig(string $key): array {
