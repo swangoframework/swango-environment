@@ -43,26 +43,27 @@ class Dir extends \Swango\Environment {
             $base_dir
         ];
         foreach ([
-            'main',
-            'controller',
-            'model',
-            'model_cache',
-            'library',
-            'app',
-            'module',
-            'data',
-            'cli',
-            'log',
-            'config'
-        ] as $key) {
+                     'main',
+                     'controller',
+                     'model',
+                     'model_cache',
+                     'library',
+                     'app',
+                     'module',
+                     'data',
+                     'cli',
+                     'log',
+                     'config'
+                 ] as $key) {
             if (! isset($dir_config->{$key}) || '' === $dir_config->{$key}) {
                 $dir = $default_config->{$key};
             } else {
                 $dir = $dir_config->{$key};
             }
             $dir = str_replace($search, $replace, $dir);
-            if ($dir{- 1} !== '/')
+            if ($dir[-1] !== '/') {
                 $dir .= '/';
+            }
             $search[] = '{' . $key . '}';
             $replace[] = $dir;
             $this->data->{$key} = $dir;

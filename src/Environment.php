@@ -21,7 +21,7 @@ abstract class Environment {
             $default_config = json_decode(file_get_contents(__DIR__ . '/../default/swango.json'), false);
             $unset = [];
             foreach ($default_config as $k => $v)
-                if ($k{0} === '_') {
+                if ($k[0] === '_') {
                     $unset[] = $k;
                 }
             foreach ($unset as $k)
