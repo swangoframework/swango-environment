@@ -1,6 +1,14 @@
 <?php
 namespace Swango;
 abstract class Environment {
+    const SWANGO_LOGO = <<<TEXT
+     ____
+    / ___|_      ____ _ _ __   __ _  ___
+    \___ \ \ /\ / / _` | '_ \ / _` |/ _ \
+     ___) \ V  V / (_| | | | | (_| | (_) |
+    |____/ \_/\_/ \__,_|_| |_|\__, |\___/
+                              |___/
+    TEXT;
     private static $storage = [];
     protected static $default_config, $basic_config, $config = [];
     public static function setBasicConfigFile(string $config_file): void {
